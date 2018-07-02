@@ -1,0 +1,103 @@
+﻿@model test.DTO.JsonAlimentador
+@{
+    ViewData["Title"] = "SEAR";
+    var msgHorarioVacio = "Sin configuración";
+}
+<div class="container configuracion-sear">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h1>Alimentador de Mascotas</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 text-center">
+            <h2 class="text-uppercase text-primary">@Model.nombreMascota</h2>
+            <img class="img-responsive img-pet" src="@ViewBag.petSrc" alt="foto mascota">
+        </div>
+        <div class="col-md-6">
+            <h2>Configuración Actual</h2>
+            <div id="mensaje-home" class="alert alert-success d-none">
+                Se ha configurado correctamente
+            </div>
+            <h3>Horarios:</h3>
+            <ul>
+                <li>Horario 1: @(Model.hora1 ?? msgHorarioVacio)</li>
+                <li>Horario 2: @(Model.hora2 ?? msgHorarioVacio)</li>
+                <li>Horario 3: @(Model.hora3 ?? msgHorarioVacio)</li>
+                <li>Horario 4: @(Model.hora4 ?? msgHorarioVacio)</li>
+            </ul>
+            <h3>Porciones:</h3>
+            <ul>
+                <li>Porción de base: @ViewBag.porcionBase gr</li>
+                <li>Cantidad de porciones:   @Model.porcion</li>
+                <li>Cantidad total consumida: @(ViewBag.porcionBase * Model.porcion) gr</li>
+            </ul>
+            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Editar</button>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Configuración</h4>
+            </div>
+            <div class="modal-body">
+                <div id="mensaje-modal" class="alert d-none">        
+                </div>
+                @using (Html.BeginForm("saveConfiguration", "Home", FormMethod.Post, new { @id="form-config", @class = "form-horizontal" }))
+                { 
+                    <div class="form-group">
+                        <label for="nombreMascota" class="col-sm-3 control-label">Nombre de la Mascota</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="nombreMascota" placeholder="Ingrese el nombre de su mascota" name="nombreMascota" value="@Model.nombreMascota">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="hora1" class="col-sm-3 control-label">Horario 1</label>
+                        <div class="col-sm-9">
+                            <input type="datetime" class="form-control" id="hora1" placeholder="Ingrese el Horario 1" name="hora1" value="@Model.hora1">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="hora2" class="col-sm-3 control-label">Horario 2</label>
+                        <div class="col-sm-9">
+                            <input type="datetime" class="form-control" id="hora2" placeholder="Ingrese el Horario 2" name="hora2" value="@Model.hora2">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="hora3" class="col-sm-3 control-label">Horario 3</label>
+                        <div class="col-sm-9">
+                            <input type="datetime" class="form-control" id="hora3" placeholder="Ingrese el Horario 3" name="hora3" value="@Model.hora3">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="hora4" class="col-sm-3 control-label">Horario 4</label>
+                        <div class="col-sm-9">
+                            <input type="datetime" class="form-control" id="hora4" placeholder="Ingrese el Horario 4" name="hora4" value="@Model.hora4">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="cantidadPorcion" class="col-sm-3 control-label">Cantidad de Porciones</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" id="cantidadPorcion" placeholder="Ingrese la cantidad de porciones" name="porcion"  value="@Model.porcion">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-3 col-sm-9">
+                            <button id="save" type="button" class="btn btn-primary">Guardar</button>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
