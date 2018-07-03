@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace test.DTO
+namespace SEAR.DTO
 {
     public class JsonAlimentador
     {

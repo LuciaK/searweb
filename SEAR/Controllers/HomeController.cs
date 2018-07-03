@@ -5,13 +5,13 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using test.DTO;
-using test.Models;
+using SEAR.DTO;
+using SEAR.Models;
 using Newtonsoft.Json;
 using System.Net.Http;
 using Microsoft.Extensions.Configuration;
 
-namespace test.Controllers
+namespace SEAR.Controllers
 {
     public class HomeController : Controller
     {

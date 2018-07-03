@@ -1,6 +1,6 @@
 using System;
 
-namespace test.Models
+namespace SEAR.Models
 {
     public class ErrorViewModel
     {
