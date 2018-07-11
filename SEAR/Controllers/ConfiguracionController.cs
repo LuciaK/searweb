@@ -27,7 +27,7 @@ namespace SEAR.Controllers
 
             return View();
         }
-        [HttpPost]
+     /*   [HttpPost]
         public async Task<IActionResult> saveConfigurationForm(string ip, string modo)
         {
             var client = new HttpClient();
@@ -58,6 +58,7 @@ namespace SEAR.Controllers
             
             return View("Index");
         }
+        */
 
         public IActionResult Privacy()
         {

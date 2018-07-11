@@ -48,6 +48,41 @@ $(document).ready(function () {
         
     });
 
+    $("#saveConf").submit(function (e) {
+        e.preventDefault();
+    });
+
+
+    $('#saveConf').click(function () {
+
+        var url = document.getElementById("ip").value.trim();
+
+        if (url.substr(-1) == '/') {
+            url = url.substr(0, url.length - 1);
+        }
+
+        var modo = $("input:radio[name=modo]:checked").val()
+        var urlModo = url + "/" + modo;
+
+
+    /*   $.get(urlModo, function (data, status) {
+           document.getElementById("mensaje").innerHTML = data + " Status: " + status;
+           });
+    */
+        try {
+            window.open(urlModo);
+        }
+        catch (e) {
+
+            document.getElementById("mensaje").innerHTML = e.message;
+
+        }
+       
+
+
+
+    });
+
 });
 
 function validateTime(strTime) {
