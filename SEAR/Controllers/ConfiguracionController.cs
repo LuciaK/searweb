@@ -31,13 +31,31 @@ namespace SEAR.Controllers
         public async Task<IActionResult> saveConfigurationForm(string ip, string modo)
         {
             var client = new HttpClient();
-            string url = $"http://{ip}/{modo}";
+            //string url = $"http://{ip}/{modo}";
+            if(ip.EndsWith('/'))
+            {
+                ip = ip.Remove(ip.Length -1);
+            }
+
+            string url = $"{ip}/{modo}";
 
             ViewBag.url = url;
             ViewBag.ip = ip;
 
-            var response = await client.GetAsync(url);
-            response.EnsureSuccessStatusCode();
+            HttpResponseMessage response = null;
+
+            try
+            {
+                response = await client.GetAsync(url.Trim());
+                ViewBag.mensajeExito = $"Request: {url}";
+            }
+            catch (Exception ex)
+            {
+                ViewBag.mensajeError = $"\"{ex.Message}\" - {url}";
+            }
+
+
+            
             return View("Index");
         }
 

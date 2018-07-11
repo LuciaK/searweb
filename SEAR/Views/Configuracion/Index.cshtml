@@ -10,18 +10,19 @@
     <div class="row">
         <div class="col-md-12 text-center">
             <h2 class="text-uppercase text-primary">Configuración de Modos</h2>
+
             @using (Html.BeginForm("saveConfigurationForm", "Configuracion", FormMethod.Post, new { @id = "form-config", @class = "form-horizontal" }))
             {
                 <div class="form-group">
-                    <label for="ip" class="col-sm-3 control-label">IP</label>
+                    <label for="ip" class="col-sm-3 control-label">Ingrese URL</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" id="ip" placeholder="Ingrese la IP" name="ip" value="@ViewBag.url">
+                        <input type="text" class="form-control" id="ip" placeholder="Ejemplo: http://IP:Puerto" name="ip" value="@ViewBag.ip">
                     </div>
                 </div>
                 <div class="form-group text-left">
                     <label for="configuracion" class="col-sm-3 control-label">Seleccione el modo</label>
                     <div class="col-sm-9">
-                        @Html.RadioButton("modo", "normal") Normal
+                        @Html.RadioButton("modo", "normal", true) Normal
                         @Html.RadioButton("modo", "testing") Testing
                         @Html.RadioButton("modo", "mantenimiento") Mantenimiento
                         @Html.RadioButton("modo", "finMantenimiento") Fin Mantenimiento
@@ -30,12 +31,14 @@
 
                 <div class="form-group">
                     <div class="col-sm-offset-3 col-sm-9 text-left">
-                        <button id="save" type="submit" class="btn btn-primary">Guardar</button>
+                        <button id="save" type="submit" class="btn btn-primary">Enviar</button>
                     </div>
                 </div>
             }
+
         </div>
- 
+        <div class="col-md-6 col-md-offset-3 text-danger">@ViewBag.mensajeError</div>
+        <div class="col-md-6 col-md-offset-3 text-success">@ViewBag.mensajeExito</div>
 
     </div>
 
