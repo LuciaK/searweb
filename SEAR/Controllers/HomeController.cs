@@ -32,6 +32,7 @@ namespace SEAR.Controllers
 
             return View(obj);
         }
+
         public async Task<IActionResult> saveConfiguration(string nombreMascota, string hora1, string hora2, string hora3, string hora4, int porcion)
         {
             var client = new HttpClient();
@@ -50,6 +51,36 @@ namespace SEAR.Controllers
 
 
             return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> GetConfiguration()
+        {
+            var client = new WebClient();
+            var result = client.DownloadString(_configuration["HostUrl"]);
+            var obj = JsonConvert.DeserializeObject<JsonAlimentador>(result);
+
+            return Ok(obj);
+        }
+
+        public async Task<IActionResult> setConfiguration(string nombreMascota, string hora1, string hora2, string hora3, string hora4, int porcion, string alerta)
+        {
+            var client = new HttpClient();
+            var data = new JsonAlimentador
+            {
+                alerta = bool.Parse(alerta),
+                nombreMascota = nombreMascota,
+                hora1 = hora1,
+                hora2 = hora2,
+                hora3 = hora3,
+                hora4 = hora4,
+                porcion = porcion
+            };
+
+            var response = await client.PutAsJsonAsync(_configuration["HostUrl"], data);
+            response.EnsureSuccessStatusCode();
+
+
+            return Ok();
         }
 
         public IActionResult Privacy()
