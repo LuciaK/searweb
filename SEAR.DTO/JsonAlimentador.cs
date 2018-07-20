@@ -13,5 +13,6 @@ namespace SEAR.DTO
         public string hora4 { get; set; }
         public string nombreMascota { get; set; }
         public int porcion { get; set; }
+        public string modo { get; set; }
     }
 }

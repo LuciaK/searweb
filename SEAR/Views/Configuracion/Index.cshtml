@@ -11,31 +11,27 @@
         <div class="col-md-12 text-center">
             <h2 class="text-uppercase text-primary">Configuración de Modos</h2>
 
-            <form class="form-horizontal" id="configForm">
-                <div class="form-group">
-                    <label for="ip" class="col-sm-3 control-label">Ingrese URL</label>
-                    <div class="col-sm-9">
-                        <input type="text" class="form-control" id="ip" placeholder="Ejemplo: http://IP:Puerto" name="ip" value="@ViewBag.ip">
-                    </div>
-                </div>
+            @using (Html.BeginForm("saveConfigurationForm", "Configuracion", FormMethod.Post, new { @id = "form-config", @class = "form-horizontal" }))
+            {
+
                 <div class="form-group text-left">
                     <label for="configuracion" class="col-sm-3 control-label">Seleccione el modo</label>
                     <div class="col-sm-9">
-                        <label class="radio-inline"><input type="radio" name="modo" id="normal" value="normal" checked>Normal</label>
-                        <label class="radio-inline"><input type="radio" name="modo" id="testing" value="testing">Testing</label>
-                        <label class="radio-inline"><input type="radio" name="modo" id="mantenimiento" value="mantenimiento">Mantenimiento</label>
-                        <label class="radio-inline"><input type="radio" name="modo" id="finMantenimiento" value="finMantenimiento">Fin Mantenimiento</label>
+                        <label class="radio-inline">@Html.RadioButton("modo", "normal", true) Normal</label>
+                        <label class="radio-inline">@Html.RadioButton("modo", "testing") Testing</label>
+                        <label class="radio-inline">@Html.RadioButton("modo", "mantenimiento") Mantenimiento</label>
+                        <label class="radio-inline">@Html.RadioButton("modo", "finMantenimiento") Fin Mantenimiento</label>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-sm-offset-3 col-sm-9 text-left">
-                        <button id="saveConf" type="button" class="btn btn-primary">Enviar</button>
+                        <button id="saveConf" type="submit" class="btn btn-primary">Enviar</button>
                     </div>
                 </div>
-            </form>
+               }
 
-        </div>
+            </div>
         <div class="col-md-6 col-md-offset-3 text-danger mensaje"></div>
 
     </div>

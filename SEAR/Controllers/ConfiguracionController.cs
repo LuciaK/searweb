@@ -17,6 +17,7 @@ namespace SEAR.Controllers
     public class ConfiguracionController : Controller
     {
         IConfiguration _configuration;
+        
         public ConfiguracionController(IConfiguration configuration)
         {
             _configuration = configuration;
@@ -27,38 +28,33 @@ namespace SEAR.Controllers
 
             return View();
         }
-     /*   [HttpPost]
-        public async Task<IActionResult> saveConfigurationForm(string ip, string modo)
+        [HttpPost]
+        public async Task<IActionResult> saveConfigurationForm(string modo)
         {
             var client = new HttpClient();
-            //string url = $"http://{ip}/{modo}";
-            if(ip.EndsWith('/'))
+
+            var wclient = new WebClient();
+            var result = wclient.DownloadString(_configuration["HostUrl"]);
+            var obj = JsonConvert.DeserializeObject<JsonAlimentador>(result);
+
+
+            var data = new JsonAlimentador
             {
-                ip = ip.Remove(ip.Length -1);
-            }
+                alerta = obj.alerta,
+                hora1 = obj.hora1,
+                hora2 = obj.hora2,
+                hora3 = obj.hora3,
+                hora4 = obj.hora4,
+                modo = modo,
+                porcion = obj.porcion
+            };
 
-            string url = $"{ip}/{modo}";
+            var response = await client.PutAsJsonAsync(_configuration["HostUrl"], data);
+            response.EnsureSuccessStatusCode();
 
-            ViewBag.url = url;
-            ViewBag.ip = ip;
-
-            HttpResponseMessage response = null;
-
-            try
-            {
-                response = await client.GetAsync(url.Trim());
-                ViewBag.mensajeExito = $"Request: {url}";
-            }
-            catch (Exception ex)
-            {
-                ViewBag.mensajeError = $"\"{ex.Message}\" - {url}";
-            }
-
-
-            
             return View("Index");
         }
-        */
+        
 
         public IActionResult Privacy()
         {
