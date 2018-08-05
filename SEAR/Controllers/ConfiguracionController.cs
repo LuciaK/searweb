@@ -50,6 +50,7 @@ namespace SEAR.Controllers
                 hora3 = obj.hora3,
                 hora4 = obj.hora4,
                 modo = modo,
+                nombreMascota = obj.nombreMascota,
                 porcion = obj.porcion
             };
 
