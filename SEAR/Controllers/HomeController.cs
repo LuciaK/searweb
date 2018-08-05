@@ -35,6 +35,11 @@ namespace SEAR.Controllers
 
         public async Task<IActionResult> saveConfiguration(string nombreMascota, string hora1, string hora2, string hora3, string hora4, int porcion)
         {
+
+            var webClient = new WebClient();
+            var result = webClient.DownloadString(_configuration["HostUrl"]);
+            var obj = JsonConvert.DeserializeObject<JsonAlimentador>(result);
+
             var client = new HttpClient();
             var data = new JsonAlimentador
             {
@@ -43,8 +48,14 @@ namespace SEAR.Controllers
                 hora2 = hora2,
                 hora3 = hora3,
                 hora4 = hora4,
-                porcion = porcion
+                porcion = porcion,
+                modo = "normal"
             };
+
+            if(obj != null)
+            {
+                data.modo = obj.modo ?? "normal";
+            }
 
             var response = await client.PutAsJsonAsync(_configuration["HostUrl"], data);
             response.EnsureSuccessStatusCode();
@@ -62,7 +73,7 @@ namespace SEAR.Controllers
             return Ok(obj);
         }
 
-        public async Task<IActionResult> setConfiguration(string nombreMascota, string hora1, string hora2, string hora3, string hora4, int porcion, string alerta)
+        public async Task<IActionResult> setConfiguration(string nombreMascota, string hora1, string hora2, string hora3, string hora4, int porcion, string alerta, string modo)
         {
             var client = new HttpClient();
             var data = new JsonAlimentador
@@ -73,7 +84,8 @@ namespace SEAR.Controllers
                 hora2 = hora2,
                 hora3 = hora3,
                 hora4 = hora4,
-                porcion = porcion
+                porcion = porcion,
+                modo = modo
             };
 
             var response = await client.PutAsJsonAsync(_configuration["HostUrl"], data);

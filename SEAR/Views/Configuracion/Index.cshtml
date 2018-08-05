@@ -1,6 +1,7 @@
 ﻿@{
     ViewData["Title"] = "SEAR";
 }
+
 <div class="container configuracion-sear">
     <div class="row">
         <div class="col-md-12 text-center">
@@ -17,10 +18,10 @@
                 <div class="form-group text-left">
                     <label for="configuracion" class="col-sm-3 control-label">Seleccione el modo</label>
                     <div class="col-sm-9">
-                        <label class="radio-inline">@Html.RadioButton("modo", "normal", true) Normal</label>
-                        <label class="radio-inline">@Html.RadioButton("modo", "testing") Testing</label>
-                        <label class="radio-inline">@Html.RadioButton("modo", "mantenimiento") Mantenimiento</label>
-                        <label class="radio-inline">@Html.RadioButton("modo", "finMantenimiento") Fin Mantenimiento</label>
+                        <label class="radio-inline">@Html.RadioButton("modo", "normal", (bool)(ViewBag.modo == "normal")) Normal</label>
+                        <label class="radio-inline">@Html.RadioButton("modo", "testing", (bool)(ViewBag.modo == "testing")) Testing</label>
+                        <label class="radio-inline">@Html.RadioButton("modo", "mantenimiento", (bool)(ViewBag.modo == "mantenimiento")) Mantenimiento</label>
+                        <label class="radio-inline">@Html.RadioButton("modo", "finMantenimiento", (bool)(ViewBag.modo == "finMantenimiento")) Fin Mantenimiento</label>
                     </div>
                 </div>
 
@@ -29,9 +30,9 @@
                         <button id="saveConf" type="submit" class="btn btn-primary">Enviar</button>
                     </div>
                 </div>
-               }
+            }
 
-            </div>
+        </div>
         <div class="col-md-6 col-md-offset-3 text-danger mensaje"></div>
 
     </div>

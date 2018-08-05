@@ -25,9 +25,13 @@ namespace SEAR.Controllers
 
         public IActionResult Index()
         {
-
+            var wclient = new WebClient();
+            var result = wclient.DownloadString(_configuration["HostUrl"]);
+            var obj = JsonConvert.DeserializeObject<JsonAlimentador>(result);
+            ViewBag.modo = obj.modo;
             return View();
         }
+
         [HttpPost]
         public async Task<IActionResult> saveConfigurationForm(string modo)
         {
@@ -51,6 +55,7 @@ namespace SEAR.Controllers
 
             var response = await client.PutAsJsonAsync(_configuration["HostUrl"], data);
             response.EnsureSuccessStatusCode();
+            ViewBag.modo = modo;
 
             return View("Index");
         }
